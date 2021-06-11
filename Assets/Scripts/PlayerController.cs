@@ -6,8 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     private float translation;
     private float rotation;
-    private Animator ani;
 
+    private Animator ani;
     private void Start()
     {
         ani = GetComponent<Animator>();
@@ -15,13 +15,15 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        translation = Input.GetAxis("Vertical") * 10f;
-        rotation = Input.GetAxis("Horizontal") * 5f;
+        if (GameManager.instance.isGameover) { return; }
+
+        translation = Input.GetAxis("Vertical") * 12f;
+        rotation = Input.GetAxis("Horizontal") * 200f;
 
         transform.Translate(0, 0, translation * Time.deltaTime);
-        transform.Rotate(0, rotation, 0);
+        transform.Rotate(0, rotation * Time.deltaTime, 0);
 
-        if(translation != 0 || rotation != 0)
+        if (translation!=0 || rotation!=0)
         {
             ani.SetBool("walk", true);
         }
@@ -33,6 +35,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (GameManager.instance.isGameover) { return; }
+
         if (collision.collider.tag == "Obstacle")
         {
             ani.SetTrigger("damage");

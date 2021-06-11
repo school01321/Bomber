@@ -12,24 +12,22 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-        gameObject.SetActive(false); playerTrans = GameObject.FindWithTag("Player").transform;
-
+        gameObject.SetActive(false);
+        playerTrans = GameObject.FindWithTag("Player").transform;
     }
     void OnEnable()
     {
         enableTime = Time.time;
     }
-
     void Update()
     {
-        if (Time.time > enableTime + lifeTime)
+        if(Time.time >= enableTime + lifeTime)
         {
-            transform.position = poolPosition; gameObject.SetActive(false);
-        }
-        else
+            transform.position = poolPosition;
+            gameObject.SetActive(false);
+        }else
         {
             transform.Translate(playerTrans.forward * speed * Time.deltaTime);
         }
     }
 }
-

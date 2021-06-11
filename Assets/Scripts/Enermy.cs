@@ -6,16 +6,18 @@ public class Enermy : MonoBehaviour
 {
     public Transform target;
     private Rigidbody rig;
-    public float speed = 25f;
+    public float speed = 20f;
     private bool scored = false;
+
+    public AudioSource enermyaudio;
+    public GameObject explosionEffect;
 
     void Start()
     {
+        enermyaudio = GetComponent<AudioSource>();
         rig = GetComponent<Rigidbody>();
         target = GameObject.FindWithTag("Player").transform;
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (Vector3.Distance(target.position, transform.position) < 10f)
@@ -29,9 +31,11 @@ public class Enermy : MonoBehaviour
     {
         if (other.tag == "Bullet" && scored == false)
         {
-            scored = true; 
-            GameManager.instance.AddScore(1); 
-            transform.position = new Vector3(Random.Range(-30, 30), 0.5f, Random.Range(-30, 30)); 
+            enermyaudio.Play();
+            Instantiate(explosionEffect, transform.position, transform.rotation);
+            scored = true;
+            GameManager.instance.AddScore(1);
+            transform.position = new Vector3(Random.Range(-30, 30), 0.5f, Random.Range(-30, 30));
             scored = false;
         }
     }
