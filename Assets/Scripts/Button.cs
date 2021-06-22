@@ -8,7 +8,7 @@ public class Button : MonoBehaviour
 
     public void Reset()
     {
-        SceneManager.LoadScene("Desert");
+        SceneManager.LoadScene("demoNight");
     }
 
     public void Quit()

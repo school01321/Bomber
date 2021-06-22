@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     {
         if (isGameover && Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene("Desert");
+            SceneManager.LoadScene("demoNight");
         }
         if (isGameover && Input.GetKeyDown(KeyCode.Q))
         {
